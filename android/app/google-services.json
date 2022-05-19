@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "356905042097",
+    "firebase_url": "https://gpstracker-a242d-default-rtdb.firebaseio.com",
+    "project_id": "gpstracker-a242d",
+    "storage_bucket": "gpstracker-a242d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356905042097:android:b2da066fef7ab9954d2290",
+        "android_client_info": {
+          "package_name": "com.example.test_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "356905042097-tdliv1hv7f0m5otp2ath8r8rkk475lbi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo6laDpv0mgRsRGRiidz1XM-1FO-K2rqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "356905042097-tdliv1hv7f0m5otp2ath8r8rkk475lbi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "356905042097-0ktjvljeb57odc3b6k85ftdo0el132qv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.test2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

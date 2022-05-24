@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:test_2/data/repositories/car_repository.dart';
 import 'package:test_2/devices_details.dart';
 import 'package:test_2/loginscreen.dart';
-
-
+import 'package:test_2/models/car.dart';
 
 class device extends StatefulWidget {
   const device({Key? key}) : super(key: key);
@@ -12,13 +12,11 @@ class device extends StatefulWidget {
 }
 
 class _deviceState extends State<device> {
- 
   final List<Map<String, dynamic>> _allUsers = [
-    { "name": "véhicule N°1 " },
-    { "name": "véhiculeN°2" },
-    { "name": "véhicule N°3"},
-    { "name": "véhicule N°4"},
- 
+    {"name": "véhicule N°1 "},
+    {"name": "véhiculeN°2"},
+    {"name": "véhicule N°3"},
+    {"name": "véhicule N°4"},
   ];
 
   // This list holds the data for the list view
@@ -60,7 +58,7 @@ class _deviceState extends State<device> {
           Icon(Icons.directions_car_filled_outlined),
         ],
       ),
-     body: Padding(
+      body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
@@ -76,36 +74,57 @@ class _deviceState extends State<device> {
               height: 20,
             ),
             Expanded(
-              child: _foundUsers.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: _foundUsers.length,
-                      itemBuilder: (context, index) => Card(
-                        key: ValueKey(_foundUsers[index]["numero"]),
-                        color: Color.fromARGB(255, 78, 78, 76),
-                        elevation: 4,
-                       
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        child: ListTile(
-                         onTap: () {
-                           
+                child: StreamBuilder<List<Car>?>(
+                    stream: CarRepository().getCars(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      } else {
+                        if (snapshot.hasData) {
+                          var cars = snapshot.data!;
+                          return ListView.builder(
+                              itemCount: cars.length,
+                              itemBuilder: (context, index) {
+                                var car = cars[index];
+                                return Card(
+                                  key: ValueKey(car.serie),
+                                  color: Color.fromARGB(255, 78, 78, 76),
+                                  elevation: 4,
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  child: ListTile(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DeviceDetails(car: car , update : true)));
+                                    },
 
-                           Navigator.push(context,MaterialPageRoute(builder: (context)=>deviceDetails(name:'name')));
-                         },
-                         
-                          title: Text(_foundUsers[index]['name']),
-                        // *  subtitle: Text(
-                        // *    '${_foundUsers[index]["id"].toString()}'),
-                              
-                        ),
-                      ),
-                    )
-                  : const Text(
-                      'No results found',
-                      style: TextStyle(fontSize: 24),
-                    ),
-            ),
+                                    title: Text(car.name ?? ""),
+                                    // *  subtitle: Text(
+                                    // *    '${_foundUsers[index]["id"].toString()}'),
+                                  ),
+                                );
+                              });
+                        } else {
+                          return const Text(
+                            'No results found',
+                            style: TextStyle(fontSize: 24),
+                          );
+                        }
+                      }
+                    })),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+           Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const DeviceDetails(car: null, update: false)));
+      },
+        child: const Icon(Icons.add),
       ),
     );
   }

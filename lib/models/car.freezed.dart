@@ -21,12 +21,21 @@ Car _$CarFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Car {
   String? get id => throw _privateConstructorUsedError;
+  set id(String? value) => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
+  set name(String? value) => throw _privateConstructorUsedError;
   String? get model => throw _privateConstructorUsedError;
+  set model(String? value) => throw _privateConstructorUsedError;
   double? get lat => throw _privateConstructorUsedError;
+  set lat(double? value) => throw _privateConstructorUsedError;
   double? get long => throw _privateConstructorUsedError;
+  set long(double? value) => throw _privateConstructorUsedError;
   double? get imei => throw _privateConstructorUsedError;
+  set imei(double? value) => throw _privateConstructorUsedError;
   double? get serie => throw _privateConstructorUsedError;
+  set serie(double? value) => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
+  set userId(String? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +53,8 @@ abstract class $CarCopyWith<$Res> {
       double? lat,
       double? long,
       double? imei,
-      double? serie});
+      double? serie,
+      String? userId});
 }
 
 /// @nodoc
@@ -64,6 +74,7 @@ class _$CarCopyWithImpl<$Res> implements $CarCopyWith<$Res> {
     Object? long = freezed,
     Object? imei = freezed,
     Object? serie = freezed,
+    Object? userId = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -94,6 +105,10 @@ class _$CarCopyWithImpl<$Res> implements $CarCopyWith<$Res> {
           ? _value.serie
           : serie // ignore: cast_nullable_to_non_nullable
               as double?,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -110,7 +125,8 @@ abstract class _$$_CarCopyWith<$Res> implements $CarCopyWith<$Res> {
       double? lat,
       double? long,
       double? imei,
-      double? serie});
+      double? serie,
+      String? userId});
 }
 
 /// @nodoc
@@ -131,6 +147,7 @@ class __$$_CarCopyWithImpl<$Res> extends _$CarCopyWithImpl<$Res>
     Object? long = freezed,
     Object? imei = freezed,
     Object? serie = freezed,
+    Object? userId = freezed,
   }) {
     return _then(_$_Car(
       id: id == freezed
@@ -161,6 +178,10 @@ class __$$_CarCopyWithImpl<$Res> extends _$CarCopyWithImpl<$Res>
           ? _value.serie
           : serie // ignore: cast_nullable_to_non_nullable
               as double?,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -175,55 +196,32 @@ class _$_Car implements _Car {
       this.lat,
       this.long,
       this.imei,
-      this.serie});
+      this.serie,
+      this.userId});
 
   factory _$_Car.fromJson(Map<String, dynamic> json) => _$$_CarFromJson(json);
 
   @override
-  final String? id;
+  String? id;
   @override
-  final String? name;
+  String? name;
   @override
-  final String? model;
+  String? model;
   @override
-  final double? lat;
+  double? lat;
   @override
-  final double? long;
+  double? long;
   @override
-  final double? imei;
+  double? imei;
   @override
-  final double? serie;
+  double? serie;
+  @override
+  String? userId;
 
   @override
   String toString() {
-    return 'Car(id: $id, name: $name, model: $model, lat: $lat, long: $long, imei: $imei, serie: $serie)';
+    return 'Car(id: $id, name: $name, model: $model, lat: $lat, long: $long, imei: $imei, serie: $serie, userId: $userId)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Car &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.model, model) &&
-            const DeepCollectionEquality().equals(other.lat, lat) &&
-            const DeepCollectionEquality().equals(other.long, long) &&
-            const DeepCollectionEquality().equals(other.imei, imei) &&
-            const DeepCollectionEquality().equals(other.serie, serie));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(model),
-      const DeepCollectionEquality().hash(lat),
-      const DeepCollectionEquality().hash(long),
-      const DeepCollectionEquality().hash(imei),
-      const DeepCollectionEquality().hash(serie));
 
   @JsonKey(ignore: true)
   @override
@@ -238,13 +236,14 @@ class _$_Car implements _Car {
 
 abstract class _Car implements Car {
   factory _Car(
-      {final String? id,
-      final String? name,
-      final String? model,
-      final double? lat,
-      final double? long,
-      final double? imei,
-      final double? serie}) = _$_Car;
+      {String? id,
+      String? name,
+      String? model,
+      double? lat,
+      double? long,
+      double? imei,
+      double? serie,
+      String? userId}) = _$_Car;
 
   factory _Car.fromJson(Map<String, dynamic> json) = _$_Car.fromJson;
 
@@ -262,6 +261,8 @@ abstract class _Car implements Car {
   double? get imei => throw _privateConstructorUsedError;
   @override
   double? get serie => throw _privateConstructorUsedError;
+  @override
+  String? get userId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_CarCopyWith<_$_Car> get copyWith => throw _privateConstructorUsedError;

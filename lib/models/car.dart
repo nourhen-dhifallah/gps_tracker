@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'car.freezed.dart';
 part 'car.g.dart';
 
-@freezed
+@unfreezed
 class Car with _$Car {
 
   factory Car( {
@@ -14,7 +14,8 @@ class Car with _$Car {
     double? lat ,
     double? long ,
     double? imei ,
-    double? serie 
+    double? serie ,
+    String? userId ,
   }) = _Car;
 
   factory Car.fromJson(Map<String, dynamic> json) => _$CarFromJson(json);

@@ -175,7 +175,7 @@ title: Text('exit'),
                         ),
            markers: getmarkers(snapshot.data), //markers to show on map
                          
-          mapType: MapType.normal, //map type
+          mapType: MapType.terrain, //map type
           onMapCreated: (controller) { //method called when map is created
           setState(() {
           mapController = controller; 

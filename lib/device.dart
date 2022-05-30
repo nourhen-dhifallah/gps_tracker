@@ -50,82 +50,67 @@ class _deviceState extends State<device> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text('véhicule'),
-        actions: [
-          Icon(Icons.directions_car_filled_outlined),
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 15,
+          ),
+          TextField(
+            onChanged: (value) => _runFilter(value),
+            decoration: const InputDecoration(
+                labelText: 'Search', suffixIcon: Icon(Icons.search)),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Expanded(
+              child: StreamBuilder<List<Car>?>(
+                  stream: CarRepository().getCars(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else {
+                      if (snapshot.hasData) {
+                        var cars = snapshot.data!;
+                        return ListView.builder(
+                            itemCount: cars.length,
+                            itemBuilder: (context, index) {
+                              var car = cars[index];
+                              return Card(
+                                key: ValueKey(car.serie),
+                                color: Color.fromARGB(255, 78, 78, 76),
+                                elevation: 4,
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                child: ListTile(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => DeviceDetails(
+                                                car: car, update: true)));
+                                  },
+
+                                  title: Text(car.name ?? ""),
+                                  // *  subtitle: Text(
+                                  // *    '${_foundUsers[index]["id"].toString()}'),
+                                ),
+                              );
+                            });
+                      } else {
+                        return const Text(
+                          'No results found',
+                          style: TextStyle(fontSize: 24),
+                        );
+                      }
+                    }
+                  })),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 15,
-            ),
-            TextField(
-              onChanged: (value) => _runFilter(value),
-              decoration: const InputDecoration(
-                  labelText: 'Search', suffixIcon: Icon(Icons.search)),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Expanded(
-                child: StreamBuilder<List<Car>?>(
-                    stream: CarRepository().getCars(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircularProgressIndicator();
-                      } else {
-                        if (snapshot.hasData) {
-                          var cars = snapshot.data!;
-                          return ListView.builder(
-                              itemCount: cars.length,
-                              itemBuilder: (context, index) {
-                                var car = cars[index];
-                                return Card(
-                                  key: ValueKey(car.serie),
-                                  color: Color.fromARGB(255, 78, 78, 76),
-                                  elevation: 4,
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  child: ListTile(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DeviceDetails(car: car , update : true)));
-                                    },
-
-                                    title: Text(car.name ?? ""),
-                                    // *  subtitle: Text(
-                                    // *    '${_foundUsers[index]["id"].toString()}'),
-                                  ),
-                                );
-                              });
-                        } else {
-                          return const Text(
-                            'No results found',
-                            style: TextStyle(fontSize: 24),
-                          );
-                        }
-                      }
-                    })),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const DeviceDetails(car: null, update: false)));
-      },
-        child: const Icon(Icons.add),
-      ),
     );
+
+    
   }
 }

@@ -26,10 +26,14 @@ mixin _$Car {
   set name(String? value) => throw _privateConstructorUsedError;
   String? get model => throw _privateConstructorUsedError;
   set model(String? value) => throw _privateConstructorUsedError;
-  double? get lat => throw _privateConstructorUsedError;
-  set lat(double? value) => throw _privateConstructorUsedError;
-  double? get long => throw _privateConstructorUsedError;
-  set long(double? value) => throw _privateConstructorUsedError;
+  double? get srcLat => throw _privateConstructorUsedError;
+  set srcLat(double? value) => throw _privateConstructorUsedError;
+  double? get srclong => throw _privateConstructorUsedError;
+  set srclong(double? value) => throw _privateConstructorUsedError;
+  double? get desLat => throw _privateConstructorUsedError;
+  set desLat(double? value) => throw _privateConstructorUsedError;
+  double? get deslong => throw _privateConstructorUsedError;
+  set deslong(double? value) => throw _privateConstructorUsedError;
   double? get imei => throw _privateConstructorUsedError;
   set imei(double? value) => throw _privateConstructorUsedError;
   double? get serie => throw _privateConstructorUsedError;
@@ -50,8 +54,10 @@ abstract class $CarCopyWith<$Res> {
       {String? id,
       String? name,
       String? model,
-      double? lat,
-      double? long,
+      double? srcLat,
+      double? srclong,
+      double? desLat,
+      double? deslong,
       double? imei,
       double? serie,
       String? userId});
@@ -70,8 +76,10 @@ class _$CarCopyWithImpl<$Res> implements $CarCopyWith<$Res> {
     Object? id = freezed,
     Object? name = freezed,
     Object? model = freezed,
-    Object? lat = freezed,
-    Object? long = freezed,
+    Object? srcLat = freezed,
+    Object? srclong = freezed,
+    Object? desLat = freezed,
+    Object? deslong = freezed,
     Object? imei = freezed,
     Object? serie = freezed,
     Object? userId = freezed,
@@ -89,13 +97,21 @@ class _$CarCopyWithImpl<$Res> implements $CarCopyWith<$Res> {
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as String?,
-      lat: lat == freezed
-          ? _value.lat
-          : lat // ignore: cast_nullable_to_non_nullable
+      srcLat: srcLat == freezed
+          ? _value.srcLat
+          : srcLat // ignore: cast_nullable_to_non_nullable
               as double?,
-      long: long == freezed
-          ? _value.long
-          : long // ignore: cast_nullable_to_non_nullable
+      srclong: srclong == freezed
+          ? _value.srclong
+          : srclong // ignore: cast_nullable_to_non_nullable
+              as double?,
+      desLat: desLat == freezed
+          ? _value.desLat
+          : desLat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      deslong: deslong == freezed
+          ? _value.deslong
+          : deslong // ignore: cast_nullable_to_non_nullable
               as double?,
       imei: imei == freezed
           ? _value.imei
@@ -122,8 +138,10 @@ abstract class _$$_CarCopyWith<$Res> implements $CarCopyWith<$Res> {
       {String? id,
       String? name,
       String? model,
-      double? lat,
-      double? long,
+      double? srcLat,
+      double? srclong,
+      double? desLat,
+      double? deslong,
       double? imei,
       double? serie,
       String? userId});
@@ -143,8 +161,10 @@ class __$$_CarCopyWithImpl<$Res> extends _$CarCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? model = freezed,
-    Object? lat = freezed,
-    Object? long = freezed,
+    Object? srcLat = freezed,
+    Object? srclong = freezed,
+    Object? desLat = freezed,
+    Object? deslong = freezed,
     Object? imei = freezed,
     Object? serie = freezed,
     Object? userId = freezed,
@@ -162,13 +182,21 @@ class __$$_CarCopyWithImpl<$Res> extends _$CarCopyWithImpl<$Res>
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as String?,
-      lat: lat == freezed
-          ? _value.lat
-          : lat // ignore: cast_nullable_to_non_nullable
+      srcLat: srcLat == freezed
+          ? _value.srcLat
+          : srcLat // ignore: cast_nullable_to_non_nullable
               as double?,
-      long: long == freezed
-          ? _value.long
-          : long // ignore: cast_nullable_to_non_nullable
+      srclong: srclong == freezed
+          ? _value.srclong
+          : srclong // ignore: cast_nullable_to_non_nullable
+              as double?,
+      desLat: desLat == freezed
+          ? _value.desLat
+          : desLat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      deslong: deslong == freezed
+          ? _value.deslong
+          : deslong // ignore: cast_nullable_to_non_nullable
               as double?,
       imei: imei == freezed
           ? _value.imei
@@ -193,8 +221,10 @@ class _$_Car implements _Car {
       {this.id,
       this.name,
       this.model,
-      this.lat,
-      this.long,
+      this.srcLat,
+      this.srclong,
+      this.desLat,
+      this.deslong,
       this.imei,
       this.serie,
       this.userId});
@@ -208,9 +238,13 @@ class _$_Car implements _Car {
   @override
   String? model;
   @override
-  double? lat;
+  double? srcLat;
   @override
-  double? long;
+  double? srclong;
+  @override
+  double? desLat;
+  @override
+  double? deslong;
   @override
   double? imei;
   @override
@@ -220,7 +254,7 @@ class _$_Car implements _Car {
 
   @override
   String toString() {
-    return 'Car(id: $id, name: $name, model: $model, lat: $lat, long: $long, imei: $imei, serie: $serie, userId: $userId)';
+    return 'Car(id: $id, name: $name, model: $model, srcLat: $srcLat, srclong: $srclong, desLat: $desLat, deslong: $deslong, imei: $imei, serie: $serie, userId: $userId)';
   }
 
   @JsonKey(ignore: true)
@@ -239,8 +273,10 @@ abstract class _Car implements Car {
       {String? id,
       String? name,
       String? model,
-      double? lat,
-      double? long,
+      double? srcLat,
+      double? srclong,
+      double? desLat,
+      double? deslong,
       double? imei,
       double? serie,
       String? userId}) = _$_Car;
@@ -254,9 +290,13 @@ abstract class _Car implements Car {
   @override
   String? get model => throw _privateConstructorUsedError;
   @override
-  double? get lat => throw _privateConstructorUsedError;
+  double? get srcLat => throw _privateConstructorUsedError;
   @override
-  double? get long => throw _privateConstructorUsedError;
+  double? get srclong => throw _privateConstructorUsedError;
+  @override
+  double? get desLat => throw _privateConstructorUsedError;
+  @override
+  double? get deslong => throw _privateConstructorUsedError;
   @override
   double? get imei => throw _privateConstructorUsedError;
   @override

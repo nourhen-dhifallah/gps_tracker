@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_2/data/repositories/car_repository.dart';
 import 'package:test_2/device.dart';
+import 'package:test_2/map.dart';
+import 'package:test_2/map_page.dart';
 import 'package:test_2/models/car.dart';
 
 class DeviceDetails extends StatefulWidget {
@@ -24,7 +26,7 @@ class _DeviceDetailsState extends State<DeviceDetails> {
   CarRepository repo = CarRepository();
   @override
   Widget build(BuildContext context) {
-    if (widget.car !=null) {
+    if (widget.car != null) {
       newCar = widget.car!;
     }
     return Scaffold(
@@ -106,7 +108,7 @@ class _DeviceDetailsState extends State<DeviceDetails> {
             const SizedBox(
               height: 15.0,
             ),
-            isCurrentUser(widget.car?.userId ,widget.update)
+            isCurrentUser(widget.car?.userId, widget.update)
                 ? Container(
                     width: double.infinity,
                     color: const Color.fromARGB(255, 16, 17, 19),
@@ -127,13 +129,35 @@ class _DeviceDetailsState extends State<DeviceDetails> {
                     ),
                   )
                 : const SizedBox(),
+                 const SizedBox(
+              height: 15.0,
+            ),
+            widget.update
+                ? Container(
+                    width: double.infinity,
+                    color: const Color.fromARGB(255, 16, 17, 19),
+                    child: MaterialButton(
+                      onPressed: () {
+                        if(widget.car != null)
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MapPage(car: widget.car!,)));
+                      },
+                      child: Text(
+                        'MAP',
+                        style: const TextStyle(
+                          color: Colors.white60,
+                        ),
+                      ),
+                    ),
+                  )
+                : SizedBox()
           ]),
         ),
       ),
     );
   }
 
-  bool isCurrentUser(String? userId , bool update) {
+  bool isCurrentUser(String? userId, bool update) {
     return !update || FirebaseAuth.instance.currentUser?.uid == userId;
   }
 }

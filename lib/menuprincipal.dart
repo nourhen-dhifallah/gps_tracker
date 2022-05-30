@@ -4,41 +4,22 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:test_2/authBloc/auth_bloc.dart';
 import 'package:test_2/authBloc/auth_event.dart';
 import 'package:test_2/authBloc/auth_state.dart';
-import 'package:test_2/data/repositories/auth_repository.dart';
-import 'package:test_2/data/repositories/car_repository.dart';
 import 'package:test_2/device.dart';
+import 'package:test_2/devices_details.dart';
 import 'package:test_2/loginscreen.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:test_2/models/car.dart';
+import 'package:test_2/map.dart';
 
 class MenuPrincipal extends StatefulWidget {
   _MenuPrincipalState createState() => _MenuPrincipalState();
 }
 
 class _MenuPrincipalState extends State<MenuPrincipal> {
-  final databaseReference = FirebaseDatabase.instance.ref();
 
-  var myMenuItems = <String>[
-    'type de carte',
-    'paramétres',
-  ];
+  
 
-  void onSelect(item) {
-    switch (item) {
-      case 'type de carte ':
-        print('type de carte cliked');
-        break;
-
-      case 'paramétres':
-        print('paramétres clicked');
-        break;
-    }
-  }
-
-  late GoogleMapController mapController; //contrller for Google map
 
   //markers for google map
-  static const LatLng showLocation = const LatLng(35.709729, 10.678795);
+
 
   @override
   void initState() {
@@ -49,20 +30,11 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          PopupMenuButton<String>(
-              onSelected: onSelect,
-              itemBuilder: (BuildContext context) {
-                return myMenuItems.map((String choice) {
-                  return PopupMenuItem<String>(
-                    child: Text(choice),
-                    value: choice,
-                  );
-                }).toList();
-              })
+        Icon(Icons.directions_car_filled_outlined)
         ],
         backgroundColor: Colors.black,
         title: Text(
-          'carte',
+          'véhicule',
           style: TextStyle(
             fontSize: 22.0,
             color: Colors.white,
@@ -115,7 +87,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                 title: Text('véhicule'),
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => device()));
+                      MaterialPageRoute(builder: (context) => MenuPrincipal()));
                 },
               ),
               ListTile(
@@ -123,7 +95,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                 title: Text('carte'),
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MenuPrincipal()));
+                      MaterialPageRoute(builder: (context) => MyMap()));
                 },
               ),
               ListTile(
@@ -137,59 +109,21 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
           ),
         ),
       ),
-      body: StreamBuilder<List<Car>?>(
-          stream: CarRepository().getCars(),
-          builder: (context, snapshot) {
-            return GoogleMap(
-              //Map widget from google_maps_flutter package
-              zoomGesturesEnabled: true, //enable Zoom in, out on map
-              initialCameraPosition: CameraPosition(
-                //innital position in map
-                target: showLocation, //initial position
-                zoom: 15.0, //initial zoom level
-              ),
-              markers: getmarkers(snapshot.data), //markers to show on map
-
-              mapType: MapType.terrain, //map type
-              onMapCreated: (controller) {
-                //method called when map is created
-                setState(() {
-                  mapController = controller;
-                });
-              },
-            );
-          }),
+      body: device() ,
+         floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      const DeviceDetails(car: null, update: false)));
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
-  Future getData() async {
-    var location = await databaseReference.child('device1').get();
-    print(location.value);
-    return location.value;
-  }
 
-  Set<Marker> getmarkers(List<Car>? cars) {
-    //markers to place on map
-    if (cars != null) {
-      Set<Marker> markers = new Set();
-      cars.forEach((element) {
-        markers.add(Marker(
-          //add second marker
-          markerId: MarkerId(showLocation.toString()),
-          position: LatLng(element.lat ?? 35.713143,
-              element.long ?? 10.670656), //position of marker
-          infoWindow: InfoWindow(
-            //popup info
-            title: element.name,
-            snippet: element.model,
-          ),
-          icon: BitmapDescriptor.defaultMarker, //Icon for Marker
-        ));
-      });
 
-      return markers;
-    } else {
-      return <Marker>{};
-    }
-  }
+  
 }

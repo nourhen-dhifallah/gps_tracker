@@ -12,12 +12,15 @@ class CarRepository {
 
   addCar(Car car) {
     final doc = FirebaseFirestore.instance.collection("cars").doc();
+    car.srcLat = 35.709729;
+    car.srclong = 10.678795;
+    car.desLat = 35.709000;
+    car.deslong = 10.678900;
 
     doc.set(car.toJson());
   }
 
   updateCar(Car car) {
-
     final doc = FirebaseFirestore.instance.collection("cars").doc(car.id);
 
     doc.update(car.toJson());
